@@ -1,0 +1,10 @@
+.git
+terraform_infra/.terraform
+terraform_infra/.terraform.lock.hcl
+terraform_infra/terraform.tfstate
+terraform_infra/terraform.tfstate.backup
+ansible_conf/ansibleHM.pem
+ansible_conf/playbook.yml
+terraform_infra/New_folder
+ansible_conf/templates
+ansible_conf/notes

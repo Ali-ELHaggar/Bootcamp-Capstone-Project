@@ -1,0 +1,58 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+      - name: Install the AWS CLI
+        apt:
+          name: awscli
+          state: present
+      - name: Verify the installation
+        command: aws --version
+        register: aws_version
+      - debug:
+          msg: "The AWS CLI is installed. Version: {{ aws_version.stdout }}"
+
+      # - name: Configure AWS
+      #   shell: |
+      #     aws configure set aws_access_key_id AKIASURSGXWXPBP265NC
+      #     aws configure set aws_secret_access_key 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
+      #     aws configure set region us-east-1
+      #     aws configure set output json
+      #   register: aws_config_result
+      #   failed_when: aws_config_result.rc != 0
+      #   ignore_errors: yes
+
+      # - name: Display AWS Configuration Result
+      #   debug:
+      #     var: aws_config_result
+
+      # - name: Configure kubectl solve api version issue
+      #   shell: |
+      #     curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
+      #     chmod +x ./kubectl
+      #     sudo mv ./kubectl /usr/local/bin/kubectl
+      #     sudo kubectl version
+
+      # - name: Download kubectl binary
+      #   get_url:
+      #     url: https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
+      #     dest: /usr/local/bin/kubectl
+      #     mode: "0755"
+
+      # - name: Copy kubectl binary
+      #   copy:
+      #     src: files/kubectl
+      #     dest: /usr/local/bin/kubectl
+      #     mode: "0755"
+
+
+
+      # - name: Configure AWS
+      #   shell: |
+      #     aws configure set aws_access_key_id AKIASURSGXWXPBP265NC
+      #     aws configure set aws_secret_access_key 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
+      #     aws configure set region us-east-1
+      #     aws configure set output json
+
+      # - name: Update kubeconfig for Amazon EKS cluster
+      #   shell: aws eks update-kubeconfig --name eks --region us-east-1

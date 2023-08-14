@@ -1,0 +1,43 @@
+---
+- name: Install kubectl on Ubuntu
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install the curl package
+      apt:
+        name: curl
+        state: present
+
+    - name: Download the kubectl binary
+      get_url:
+        url: https://dl.k8s.io/release/v1.24.0/bin/linux/amd64/kubectl
+        dest: /usr/local/bin/kubectl
+        mode: 0755
+
+    - name: Make kubectl executable
+      file:
+        path: /usr/local/bin/kubectl
+        state: file
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Add kubectl to the path
+      lineinfile:
+        path: /etc/profile
+        line: export PATH=$PATH:/usr/local/bin/kubectl
+        state: present
+
+    - name: Download the latest version of the kubectl binary
+      command: curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.24.0/bin/linux/amd64/kubectl
+
+    - name: Make the kubectl binary executable
+      file:
+        path: kubectl
+        state: file
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Move the kubectl binary to the /usr/local/bin directory
+      command: sudo mv kubectl /usr/local/bin/
