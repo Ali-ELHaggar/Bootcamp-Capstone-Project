@@ -63,15 +63,18 @@ The successful completion of this project highlights the importance of DevOps pr
 
 ## Manual Steps.
 1- adding Jenkins user to docker group 
-    - ``` sudo usermod -aG docker jenkins```
-    - ```sudo service jenkins restart```
-    - ```ansible-playbook install_kubectl.yml -i inventory.ini```
+######   
+    - sudo usermod -aG docker jenkins
+    - sudo service jenkins restart
+    - ansible-playbook install_kubectl.yml -i inventory.ini
 
 2- adding the aws configure command with jenkins user to configure jenjins user authentication to AWS
-    - ```aws configure```
+######
+    - aws configure
 
 3- Kubctl ApiVersion issue when using kubectl
-    - ```curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl```
-    -```chmod +x ./kubectl```
-    -```sudo mv ./kubectl /usr/local/bin/kubectl```
-    -```sudo kubectl version```
+######
+    - curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
+    - chmod +x ./kubectl
+    - sudo mv ./kubectl /usr/local/bin/kubectl
+    - sudo kubectl version
