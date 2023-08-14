@@ -27,7 +27,10 @@ The DevOps Bootcamp Capstone Project aims to create a fully automated CI/CD pipe
     - To apply the Terraform plan and build the infrastructure: ``` terraform apply ```
 
 - Use Ansible to install and configure Jenkins, including necessary plugins.
-    - ``` ansible-playbook -i '${aws_instance.jenkins-instance.public_ip},' -u ubuntu --private-key /PATH/.pem Ansible_PATH/main.yml ```
+    - ``` ansible-playbook install_jenkins.yml inventory.ini  ```
+    - ``` ansible-playbook install_awscli.yml -i inventory.ini  ```
+    - ```ansible-playbook install_kubectl.yml -i inventory.ini  ```
+
 
 - RUN docker compose up in flask_app dir for the code and database to run app.
     - ``` docker compose up ```
@@ -38,9 +41,9 @@ The DevOps Bootcamp Capstone Project aims to create a fully automated CI/CD pipe
 
 ## Tasks Completed
 - Used Terraform to create VPC with 3 Subnet in 2 AZs,EKS cluster with two nodes, an EC2 machine for Jenkins, ECR and run Ansible playbook for configure jenkins and plugins.
-- Used Ansible to install and configure Jenkins, including necessary plugins and AWS and Kubernetes credentials.
-- Forked the MySQL-and-Python repository and created a Docker image for the code.
-- Created a Docker compose file for the code and database to run.
+- Used Ansible to install Docker, Java, awscli, Kubectl.
+- Created webhook for jenkins and GitHub for automated initiation of the pipeline.
+- Created a Docker images and Pushed them to the ECR repos.
 - Created Kubernetes deployment files for the Python code and statefulset files for MySQL, with PV and PVCs. Added services, configmaps, and secrets for the code, and used an NGINX controller for ingress.
 - Configured Jenkins using pipeline as a code to build from GitHub on every push on all branches (GitHub webhooks) to integrate with Jenkins.
 - Build the CI/CD Pipeline using Jenkins.
@@ -58,22 +61,17 @@ The DevOps Bootcamp Capstone Project aims to create a fully automated CI/CD pipe
 The successful completion of this project highlights the importance of DevOps practices in modern software development. By automating the deployment process, teams can save time, reduce errors, and improve overall productivity. The use of tools like Terraform, Ansible, Docker, and Kubernetes streamlines the process of deploying and scaling applications, making it easier for teams to manage complex infrastructures.
 
 
-## Challenges Faced
-During the project, some challenges were encountered, including 
-1- Ansible playbook for configure jenkins plugins.
-2- configuring EC2 integrating it with EKS. Initially, only the creator of the Amazon EKS cluster has system:masters permissions to configure the cluster. To extend system:masters permissions to other users and roles, you must add the aws-auth ConfigMap to the configuration of the Amazon EKS cluster. The ConfigMap allows other IAM entities, such as users and roles, to access the Amazon EKS cluster.
+## Manual Steps.
+1- adding Jenkins user to docker group 
+    - ``` sudo usermod -aG docker jenkins```
+    - ```sudo service jenkins restart```
+    - ```ansible-playbook install_kubectl.yml -i inventory.ini```
 
-- ``` kubectl edit configmap aws-auth --namespace kube-system ```
-- ``` aws eks update-kubeconfig --name eks-cluster-name —region aws-region —profile ```
-- ``` kubectl config view --minify ```
-- https://aws.amazon.com/premiumsupport/knowledge-center/eks-api-server-unauthorized-error/
-- https://aws.amazon.com/premiumsupport/knowledge-center/amazon-eks-cluster-access/
-- https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
+2- adding the aws configure command with jenkins user to configure jenjins user authentication to AWS
+    - ```aws configure```
 
-## links that help me on this project
-- Creating the Amazon EBS CSI driver IAM role for service accounts 
-https://docs.aws.amazon.com/eks/latest/userguide/csi-iam-role.html
-- Creating an IAM OIDC provider for your cluster 
-https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html
-- Supported Versions table 
-https://github.com/kubernetes/ingress-nginx#supported-versions-table
+3- Kubctl ApiVersion issue when using kubectl
+    - ```curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl```
+    -```chmod +x ./kubectl```
+    -```sudo mv ./kubectl /usr/local/bin/kubectl```
+    -```sudo kubectl version```
