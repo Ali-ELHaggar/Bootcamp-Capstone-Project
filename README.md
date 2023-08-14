@@ -78,3 +78,13 @@ The successful completion of this project highlights the importance of DevOps pr
     - chmod +x ./kubectl
     - sudo mv ./kubectl /usr/local/bin/kubectl
     - sudo kubectl version
+
+
+Screenshots 
+
+Pipline Sucessfully uning.
+![image](https://github.com/Ali-ELHaggar/Bootcamp-Capstone-Project/assets/93692947/44fe498c-7c45-4abf-ab89-7418e1d81c08)
+
+
+Application Up and runing
+![image](https://github.com/Ali-ELHaggar/Bootcamp-Capstone-Project/assets/93692947/c5e84dc4-857f-467e-8b3d-a8ff14698140)
