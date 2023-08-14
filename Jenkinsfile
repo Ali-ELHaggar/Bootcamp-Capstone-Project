@@ -11,7 +11,7 @@ pipeline {
                 script {
                     sh '''
                     pwd
-                    cd $PWD/flask_app/FlaskApp/
+                    cd $PWD/FlaskApp/
                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 181567667630.dkr.ecr.us-east-1.amazonaws.com
                     docker build -t python_app:app_"$BUILD_NUMBER" .
                     docker tag python_app:app_"$BUILD_NUMBER" 181567667630.dkr.ecr.us-east-1.amazonaws.com/python_app:app_"$BUILD_NUMBER"
@@ -27,7 +27,7 @@ pipeline {
                 script {
                     sh '''
                     pwd
-                    cd $PWD/flask_app/db/
+                    cd $PWD/db/
                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 181567667630.dkr.ecr.us-east-1.amazonaws.com
                     docker build -t python_db:db_"$BUILD_NUMBER" .
                     docker tag python_db:db_"$BUILD_NUMBER" 181567667630.dkr.ecr.us-east-1.amazonaws.com/python_db:db_"$BUILD_NUMBER"
