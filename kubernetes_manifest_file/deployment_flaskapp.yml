@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: abdelfattah187/flaskapp:lts
+        image: <image name>
         imagePullPolicy: Always
         ports:
         - containerPort: 5002
