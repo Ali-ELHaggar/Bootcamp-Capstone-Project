@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: abdelfattah187/flaskdb:lts
+        image: <image name>
         ports:
         - containerPort: 3306
         envFrom:
